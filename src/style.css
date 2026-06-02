@@ -734,8 +734,18 @@ p {
 
 @media (max-width: 520px) {
   .page {
-    width: min(100% - 18px, 1180px);
-    padding-top: 12px;
+    width: 100%;
+    padding: 0 0 92px;
+  }
+
+  .hero {
+    min-height: auto;
+    gap: 18px;
+    padding: 22px 14px 0;
+  }
+
+  .hero-top {
+    gap: 16px;
   }
 
   .hero-title-cn,
@@ -744,20 +754,24 @@ p {
   }
 
   .hero-title-cn {
-    font-size: clamp(2.35rem, 12vw, 3.35rem);
+    font-size: clamp(2.15rem, 11vw, 3.05rem);
+    line-height: 1.08;
   }
 
   .hero-title-en {
-    font-size: clamp(1.9rem, 10vw, 2.85rem);
+    margin-top: 6px;
+    font-size: clamp(1.65rem, 8.8vw, 2.45rem);
+    line-height: 1.05;
   }
 
   .subtitle {
-    font-size: 1rem;
-    line-height: 1.8;
+    max-width: none;
+    font-size: 0.98rem;
+    line-height: 1.72;
   }
 
   .intro-strip {
-    margin-top: 22px;
+    margin: 24px 14px 28px;
   }
 
   .hero-frame,
@@ -768,6 +782,8 @@ p {
   .hero-frame {
     aspect-ratio: 6192 / 2899;
     border-radius: 0;
+    width: calc(100% + 28px);
+    margin-left: -14px;
   }
 
   .album-card,
@@ -775,30 +791,101 @@ p {
     min-height: 0;
   }
 
-  .gallery {
-    display: block;
+  .albums,
+  .album-section,
+  .video-section {
+    margin-left: 14px;
+    margin-right: 14px;
   }
 
-  .media-tile {
+  .albums {
+    gap: 14px;
+    margin-bottom: 42px;
+  }
+
+  .album-card {
+    aspect-ratio: 4 / 5;
+  }
+
+  .album-info {
+    padding: 18px;
+  }
+
+  .album-info h2 {
+    font-size: 1.75rem;
+  }
+
+  .section-head {
+    margin-bottom: 14px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(2rem, 13vw, 3rem);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .media-tile,
+  .media-tile.feature-wide,
+  .media-tile.wide,
+  .media-tile.landscape,
+  .media-tile.portrait,
+  .media-tile.square {
     width: 100%;
     height: auto;
     aspect-ratio: var(--ratio, 1.5);
-    margin-bottom: 12px;
+    flex: none;
+    margin-bottom: 0;
   }
 
-  .media-tile.feature-wide {
-    height: auto;
-    aspect-ratio: var(--ratio, 2);
+  .photo-caption {
+    padding: 36px 14px 14px;
+    font-size: 0.92rem;
+  }
+
+  .film-placeholder {
+    min-height: 220px;
+    padding: 24px;
   }
 
   .music-player {
-    right: 11px;
-    bottom: 11px;
-    left: 11px;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
   }
 
   .music-toggle {
     width: 100%;
     min-width: 0;
+    min-height: 52px;
+  }
+
+  .lightbox {
+    width: 100%;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .lightbox img,
+  .lightbox video {
+    max-height: 78dvh;
+  }
+
+  .lightbox-nav {
+    width: 38px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+
+  .lightbox-nav.previous {
+    left: 8px;
+  }
+
+  .lightbox-nav.next {
+    right: 8px;
   }
 }
