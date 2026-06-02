@@ -128,6 +128,10 @@ const allPhotos = visibleAlbums.flatMap((album) =>
   })),
 )
 const totalMediaCount = allPhotos.length + partyVideos.length
+const coverPhotoByAlbum = {
+  berlin: asset('/picture/Berlin-picture/berlin-16.jpg'),
+  party: asset('/picture/Weddingparty/party-08.jpg'),
+}
 
 function getLayoutClass(item, index) {
   if (index === 0 && item.ratio >= 1.8) {
@@ -172,6 +176,7 @@ const renderAlbumSection = (album) => `
     </div>
     <div class="gallery album-gallery">
       ${(album.id === 'party' ? [...album.media, ...partyVideos] : album.media)
+        .filter((item) => item.src !== coverPhotoByAlbum[album.id])
         .map(
           (item, index) => `
             <button class="media-tile ${item.type === 'video' ? 'video-tile landscape' : getLayoutClass(item, index)}" type="button" data-media-id="${album.id}-${index}" style="--ratio: ${item.ratio || 1.5}">
@@ -179,7 +184,7 @@ const renderAlbumSection = (album) => `
               <span class="photo-fallback">${item.albumName}</span>
               ${item.type === 'video' ? '<span class="video-badge">Video</span>' : ''}
               <span class="photo-caption">
-                <strong>${item.title}</strong>
+                <strong>${item.type === 'video' ? item.title : item.albumName}</strong>
                 <small>${item.place}</small>
               </span>
             </button>
@@ -351,7 +356,7 @@ function openLightbox(item, photoSet = [], photoIndex = 0) {
 
   previousButton.hidden = item.type !== 'photo' || currentPhotoSet.length < 2
   nextButton.hidden = item.type !== 'photo' || currentPhotoSet.length < 2
-  lightboxTitle.textContent = item.title
+  lightboxTitle.textContent = item.type === 'video' ? item.title : item.albumName
   lightboxPlace.textContent = `${item.albumName} · ${item.place}`
   lightbox.showModal()
 }
@@ -378,7 +383,9 @@ document.querySelectorAll('.media-tile').forEach((tile) => {
   tile.addEventListener('click', () => {
     const [albumId, index] = tile.dataset.mediaId.split('-')
     const album = visibleAlbums.find((item) => item.id === albumId)
-    const mediaSet = album.id === 'party' ? [...album.media, ...partyVideos] : album.media
+    const mediaSet = (album.id === 'party' ? [...album.media, ...partyVideos] : album.media).filter(
+      (item) => item.src !== coverPhotoByAlbum[album.id],
+    )
     const mediaIndex = Number(index)
     openLightbox(mediaSet[mediaIndex], mediaSet, mediaIndex)
   })
